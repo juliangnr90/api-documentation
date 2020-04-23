@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const initialApiReference = [
-    {
-        name: 'Users',
-        opened: false,
-        endpoints: [
-            { method: 'GET', name: 'List users', route: '/user-list' }
-        ]
-    },
-    // {
-    //     name: 'Agencies',
-    //     opened: false,
-    //     endpoints: []
-    // },
-];
+// import Endpoints from '../data';
+// const keys = Object.keys(Endpoints);
+// const initialApiReference = keys.map(block => {
+//     return {
+//         name: block,
+//         opened: false,
+//         endpoints: Endpoints[block].map(el => ({ 
+//             method: el.method, 
+//             name: el.title, 
+//             route: '/' + el.block + '-' + el.method + el.path.url.replace(/\//g, '-')
+//         }))
+//     }
+// });
+// console.log("initialApiReference", initialApiReference)
 
 const _getMethod = (method) => {
     switch(method) {
         case 'GET':
             return <span className="badge badge-success">GET</span>
-        break;
+        case 'POST':
+            return <span className="badge badge-primary">POST</span>
         default:
             return <span></span>
     }
@@ -28,7 +29,7 @@ const _getMethod = (method) => {
 
 const Layout = props => {
 
-    const [apiReference, setApiReference] = useState(initialApiReference); 
+    const [apiReference, setApiReference] = useState(props.initialApiReference); 
 
     useEffect(() => {
     }, [apiReference]);
@@ -95,6 +96,42 @@ const Layout = props => {
                                     })
                                 }
                             </ul>
+                            {/* <ul className="nav flex-column">
+                                {
+                                    apiReference.map((item, idx) => {
+                                        if(!item.opened) {
+                                            return (
+                                                <li className="nav-item" key={idx}>
+                                                    <div className="nav-link" onClick={onClickEntity(idx, item)}>
+                                                        <span data-feather="home"></span> {item.name} {item.opened ? '-' : '+'}
+                                                    </div>
+                                                </li>
+                                            )
+                                        } else {
+                                            return (
+                                                <div key={idx}>
+                                                    <li className="nav-item">
+                                                        <div className="nav-link" onClick={onClickEntity(idx, item)}>
+                                                            <span data-feather="home"></span> {item.name} {item.opened ? '-' : '+'}
+                                                        </div>
+                                                    </li>
+                                                    {
+                                                        item.endpoints.map(endpoint => {
+                                                            return (
+                                                                <li className="nav-item" key={endpoint.route}>
+                                                                    <Link className="nav-link" to={endpoint.route}>
+                                                                        <span>{_getMethod(endpoint.method)} {endpoint.name}</span>
+                                                                    </Link>
+                                                                </li>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            )
+                                        }
+                                    })
+                                }
+                            </ul> */}
                         </div>
                     </nav>
 
