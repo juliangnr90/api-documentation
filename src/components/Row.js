@@ -44,7 +44,7 @@ const Row = props => {
                 }}>
                     <h6>Validaciones</h6>
                     {
-                        data.validations.map(v => <div> - {v}</div>)
+                        data.validations.map((v, idx) => <div key={idx}> - {v}</div>)
                     }
                 </div>
                 :null

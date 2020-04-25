@@ -96,42 +96,6 @@ const Layout = props => {
                                     })
                                 }
                             </ul>
-                            {/* <ul className="nav flex-column">
-                                {
-                                    apiReference.map((item, idx) => {
-                                        if(!item.opened) {
-                                            return (
-                                                <li className="nav-item" key={idx}>
-                                                    <div className="nav-link" onClick={onClickEntity(idx, item)}>
-                                                        <span data-feather="home"></span> {item.name} {item.opened ? '-' : '+'}
-                                                    </div>
-                                                </li>
-                                            )
-                                        } else {
-                                            return (
-                                                <div key={idx}>
-                                                    <li className="nav-item">
-                                                        <div className="nav-link" onClick={onClickEntity(idx, item)}>
-                                                            <span data-feather="home"></span> {item.name} {item.opened ? '-' : '+'}
-                                                        </div>
-                                                    </li>
-                                                    {
-                                                        item.endpoints.map(endpoint => {
-                                                            return (
-                                                                <li className="nav-item" key={endpoint.route}>
-                                                                    <Link className="nav-link" to={endpoint.route}>
-                                                                        <span>{_getMethod(endpoint.method)} {endpoint.name}</span>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                            )
-                                        }
-                                    })
-                                }
-                            </ul> */}
                         </div>
                     </nav>
 

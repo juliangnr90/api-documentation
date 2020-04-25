@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TYPES } from '../constants';
 import Row from './Row';
 
@@ -48,15 +48,23 @@ const handleObject = (deep, data) => {
                 </div>
             )
         default: 
-            return <Row deep={deep} data={data}/>
+            return <Row key={data.name} deep={deep} data={data}/>
     }
     
 }
 
 const Template = props => {
+
     const { data } = props;
+    
     const [response, setResponse] = useState(data.responses[0]);
+    console.log("data.body", data.body)
     const [bodyExample, setBodyExample] = useState((data.body && data.body.examples) ? data.body.examples[0]: null);
+    console.log("bodyExample", bodyExample);
+
+    useEffect(() => {
+        console.log("CDM")
+    }, []);
 
     return (
         <div>
