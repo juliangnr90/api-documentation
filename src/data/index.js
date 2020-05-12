@@ -1,16 +1,15 @@
-// import userGetList from './userGetList';
-import userProfilesByUser from './userProfilesByUser';
-import hqAddOne from './hqAddOne';
-
+// import userProfilesByUser from './userProfilesByUser';
+// import hqAddOne from './hqAddOne';
+import getAllPosts from './getAllPosts';
 
 export default {
-    // User: [
-    //     userGetList
-    // ],
-    Profiles: [
-        userProfilesByUser
-    ],
-    HQ: [
-        hqAddOne
+    Posts: [
+        getAllPosts
     ]
+    // Profiles: [
+    //     // userProfilesByUser
+    // ],
+    // HQ: [
+    //     // hqAddOne
+    // ]
 }

@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { TYPES } from '../constants';
 import Row from './Row';
 
+const handleObjectSimple = (data) => {
+    console.log("data", data);
+    const keys = Object.keys(data);
+    return keys.map(k => {
+        return <div>{k} : {data[k]}</div>
+    })
+}
+
 const handleObject = (deep, data) => {
     let spaces = [];
     for (let i = 0; i < (4 * deep); i++) {
@@ -58,13 +66,8 @@ const Template = props => {
     const { data } = props;
     
     const [response, setResponse] = useState(data.responses[0]);
-    console.log("data.body", data.body)
     const [bodyExample, setBodyExample] = useState((data.body && data.body.examples) ? data.body.examples[0]: null);
-    console.log("bodyExample", bodyExample);
-
-    useEffect(() => {
-        console.log("CDM")
-    }, []);
+    const [queryExample, setQueryExample] = useState((data.query && data.query.examples) ? data.query.examples[0]: null);
 
     return (
         <div>
@@ -74,17 +77,79 @@ const Template = props => {
             <p>
                 {data.description}
             </p>
-            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">Authorization</h1>
-            </div>
-            <h5>Headers</h5>
-            <div>access-token: {'{JWT token}'}</div>
+            {
+                data.hasAuthorization
+                ?
+                <div>
+                    <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 className="h2">Authorization</h1>
+                    </div>
+                    <h5>Headers</h5>
+                    <div>access-token: {'{JWT token}'}</div>
+                </div>
+                :null
+            }
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">Request Parameters</h1>
             </div>
             <div>
                 {
-                    data.path.parameters.length
+                    data.query && data.query.parameters && data.query.parameters.length
+                        ? (
+                            <>
+                                <div className="btn btn-secondary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#queryParameters" aria-expanded="false" aria-controls="queryParameters">
+                                    Query parameters
+                                </div>
+                                <div className="collapse" id="queryParameters">
+                                    <div className="card card-body">
+                                        {
+                                            data.query.parameters.map(p => {
+                                                return handleObject(0, p);
+                                            })
+                                        }
+                                        <ul className="nav nav-tabs">
+                                        {
+                                            // data.query.examples.map(example => {
+                                            //     return handleObject(0, example);
+                                            // })
+                                            data.query.examples.map(example => {
+                                                const isSelected = queryExample.title === example.title;
+                                                return (
+                                                    <li className="nav-item" key={example.title}>
+                                                        <a className={"nav-link " + (isSelected ? ' active' : '') } onClick={e => setQueryExample(example)}>{example.title}</a>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                        </ul>
+                                        <div className="card card-body">
+                                            {  
+                                                handleObjectSimple(queryExample.data)
+                                                // data.query.examples.map(example => {
+                                                //     const isSelected = queryExample.title === example.title;
+                                                //     return (
+                                                //         <li className="nav-item" key={example.title}>
+                                                //             <a className={"nav-link " + (isSelected ? ' active' : '') } onClick={e => setQueryExample(example)}>{example.title}</a>
+                                                //         </li>
+                                                //     )
+                                                // })
+                                                // queryExample.map(example => {
+                                                //     return handleObjectSimple(example.data);
+                                                // })
+                                            }
+                                            {/* <pre>{JSON.stringify(queryExample.data, undefined, 2)}</pre> */}
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )
+                        : null
+                }
+            </div>
+            <br />
+            <div>
+                {
+                    data.path && data.path.parameters && data.path.parameters.length
                         ? (
                             <>
                                 <div className="btn btn-secondary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#pathParameters" aria-expanded="false" aria-controls="pathParameters">

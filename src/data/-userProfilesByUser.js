@@ -15,7 +15,29 @@ const data = {
         ],
         example: '/user/123456/profile'
     },
-    queryParameters: [],
+    query: {
+        parameters: [
+            {
+                name: 'limit',
+                type: 'string',
+                description: 'Limite'
+            },
+        ],
+        examples: [
+            {
+                title: 'Coso',
+                data: {
+                    limit: 123
+                }
+            },
+            {
+                title: 'Coso 2',
+                data: {
+                    limit: '0casc'
+                }
+            },
+        ]
+    },
     responses: [
         { 
             status: 200,
